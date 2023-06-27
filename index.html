@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <p class="log"></p>
+    <script>
+      async function main() {
+        const resp = await fetch("./my-module.wasm");
+        const buf = await resp.arrayBuffer();
+        const { instance } = await WebAssembly.instantiate(buf);
+        const r = instance.exports.add(1, 2);
+        document.querySelector(".log").textContent = `1 + 2 = ${r}`;
+      }
+      main();
+    </script>
+  </body>
+</html>
